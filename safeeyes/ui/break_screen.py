@@ -66,7 +66,7 @@ class BreakScreen:
         self.fade_in_break_screen = True
         self.fade_in_break_screen_duration = 1500
         self.shortcut_disable_time = 2
-        self.strict_break = False
+        # self.strict_break = False
         self.windows = []
         self.show_skip_button = False
         self.show_postpone_button = False
@@ -101,7 +101,7 @@ class BreakScreen:
         self.fade_in_break_screen_duration = config.get(
             "fade_in_break_screen_duration", 1500
         )
-        self.strict_break = config.get("strict_break", False)
+        # self.strict_break = config.get("strict_break", False)
 
     def skip_break(self) -> None:
         """Skip the break from the break screen."""
@@ -174,8 +174,9 @@ class BreakScreen:
         monitors = typing.cast(typing.Sequence[Gdk.Monitor], display.get_monitors())
         logging.info("Show break screens in %d display(s)", len(monitors))
 
-        skip_button_disabled = self.context.get("skip_button_disabled", False)
-        self.show_skip_button = not self.strict_break and not skip_button_disabled
+        # skip_button_disabled = self.context.get("skip_button_disabled", False)
+        # self.show_skip_button = not self.strict_break and not skip_button_disabled
+        self.show_skip_button = not self.context.get("skip_button_disabled", False)
 
         postpone_button_disabled = self.context.get("postpone_button_disabled", False)
         self.show_postpone_button = (
@@ -234,11 +235,11 @@ class BreakScreen:
             if not self.context.is_wayland:
                 self.__window_set_keep_above_x11(window)
 
-            if self.context.is_wayland:
-                # this may or may not be granted by the window system
-                surface = window.get_surface()
-                if surface is not None:
-                    typing.cast(Gdk.Toplevel, surface).inhibit_system_shortcuts(None)
+            # if self.context.is_wayland:
+            #     # this may or may not be granted by the window system
+            #     surface = window.get_surface()
+            #     if surface is not None:
+            #         typing.cast(Gdk.Toplevel, surface).inhibit_system_shortcuts(None)
 
             if self.fade_in_break_screen:
                 window.start_fade_in()

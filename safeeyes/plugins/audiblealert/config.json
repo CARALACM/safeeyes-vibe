@@ -1,35 +1,43 @@
 {
-    "meta": {
-        "name": "Audible Alert",
-        "description": "Play audible alert before and after breaks",
-        "version": "0.0.4"
-    },
-    "dependencies": {
-        "python_modules": [],
-        "shell_commands": [],
-        "operating_systems": [],
-        "desktop_environments": [],
-        "resources": ["on_pre_break.wav", "on_stop_break.wav"]
-    },
-    "settings": [{
-        "id": "pre_break_alert",
-        "label": "Play audible alert before breaks",
-        "type": "BOOL",
-        "default": true
+  "meta": {
+    "name": "Audible Alert",
+    "description": "Play audible alert before and after breaks",
+    "version": "0.0.5"
+  },
+  "dependencies": {
+    "python_modules": [],
+    "shell_commands": [],
+    "operating_systems": [],
+    "desktop_environments": [],
+    "resources": ["on_pre_break.wav", "on_stop_break.wav"]
+  },
+  "settings": [
+    {
+      "id": "pre_break_alert",
+      "label": "Play audible alert before breaks",
+      "type": "BOOL",
+      "default": true
     },
     {
-        "id": "post_break_alert",
-        "label": "Play audible alert after breaks",
-        "type": "BOOL",
-        "default": true
+      "id": "post_break_alert",
+      "label": "Play audible alert after breaks",
+      "type": "BOOL",
+      "default": true
     },
     {
-        "id": "volume",
-        "label": "Alert volume",
-        "type": "INT",
-        "default": 100,
-        "max": 100,
-        "min": 0
-    }],
-    "break_override_allowed": true
+      "id": "volume",
+      "label": "Alert volume",
+      "type": "INT",
+      "default": 100,
+      "max": 100,
+      "min": 0
+    },
+    {
+      "id": "alsa_input.pci-0000_00_1f.3.analog-stereo",
+      "label": "Audio target (PipeWire node name or ID)",
+      "type": "STRING",
+      "default": ""
+    }
+  ],
+  "break_override_allowed": true
 }

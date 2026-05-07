@@ -136,7 +136,7 @@ class SettingsDialog(Gtk.ApplicationWindow):
         self.spin_disable_keyboard_shortcut.set_value(
             config.get("shortcut_disable_time")
         )
-        self.switch_strict_break.set_active(config.get("strict_break"))
+        # self.switch_strict_break.set_active(config.get("strict_break"))
         self.switch_random_order.set_active(config.get("random_order"))
         self.switch_postpone.set_active(config.get("allow_postpone"))
         self.switch_fade_in_break_screen.set_active(
@@ -365,7 +365,7 @@ class SettingsDialog(Gtk.ApplicationWindow):
             "shortcut_disable_time",
             self.spin_disable_keyboard_shortcut.get_value_as_int(),
         )
-        self.config.set("strict_break", self.switch_strict_break.get_active())
+        # self.config.set("strict_break", self.switch_strict_break.get_active())
         self.config.set("random_order", self.switch_random_order.get_active())
         self.config.set("allow_postpone", self.switch_postpone.get_active())
         self.config.set(

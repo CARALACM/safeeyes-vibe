@@ -915,8 +915,8 @@ def update_next_break(break_obj, next_break_time):
 
 def on_pre_break(break_obj):
     """Disable the menu if strict_break is enabled."""
-    if safeeyes_config.get("strict_break"):
-        tray_icon.lock_menu()
+    # if safeeyes_config.get("strict_break"):
+    #    tray_icon.lock_menu()
     tray_icon.start_animation()
 
 

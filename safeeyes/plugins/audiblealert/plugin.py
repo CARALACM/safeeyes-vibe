@@ -27,6 +27,7 @@ context = None
 pre_break_alert = False
 post_break_alert = False
 volume: int = 100
+audio_target: str = ""
 
 
 def play_sound(resource_name):
@@ -38,6 +39,7 @@ def play_sound(resource_name):
 
     """
     global volume
+    global audio_target
 
     logging.info("Playing audible alert %s at volume %s%%", resource_name, volume)
     try:
@@ -49,7 +51,12 @@ def play_sound(resource_name):
         logging.error("Failed to load resource %s", resource_name)
         return
 
-    if utility.command_exist("ffplay"):  # ffmpeg
+    if audio_target and utility.command_exist("pw-play"):  # PipeWire target
+        pwvol = volume / 100
+        utility.execute_command(
+            "pw-play", ["--volume", str(pwvol), "--target", audio_target, path]
+        )
+    elif utility.command_exist("ffplay"):  # ffmpeg
         utility.execute_command(
             "ffplay",
             [
@@ -62,7 +69,7 @@ def play_sound(resource_name):
                 str(volume),
             ],
         )
-    elif utility.command_exist("pw-play"):  # pipewire
+    elif utility.command_exist("pw-play"):  # pipewire default
         pwvol = volume / 100  # 0 = silent, 1.0 = 100% volume
         utility.execute_command("pw-play", ["--volume", str(pwvol), path])
 
@@ -73,11 +80,13 @@ def init(ctx, safeeyes_config, plugin_config):
     global pre_break_alert
     global post_break_alert
     global volume
+    global audio_target
     logging.debug("Initialize Audible Alert plugin")
     context = ctx
     pre_break_alert = plugin_config["pre_break_alert"]
     post_break_alert = plugin_config["post_break_alert"]
     volume = int(plugin_config.get("volume", 100))
+    audio_target = plugin_config.get("audio_target", "")
     if volume > 100:
         volume = 100
     if volume < 0:
